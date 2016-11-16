@@ -1,0 +1,24 @@
+Git 2016-11-15
+* NROM version now on GitHub
+* Update pilbmp2nes.py and installation instructions to Python 3
+
+0.05 (2015-02-13): The "Ho-ly-$#!+" Code Review
+* renamed .h files to .inc so as not to confuse with C headers
+* broke parts of main.s into init.s, bg.s, and player.s
+* added overall map of source code to README.md
+* moved init code into init.s
+* indented forward branches in player.s
+
+0.04 (2014-11-09)
+* expanded build instructions (requested by whicker)
+* switched to 7-frame walk
+
+0.03 (2014-05-17)
+* corrected character's head position
+* corrected negative byte values for ca65 2.14
+* moved -o to front of linker command line for ld65 2.14
+* switched CHR ROM inclusion to .incbin instead of cat
+* other things listed at http://forums.nesdev.com/viewtopic.php?f=22&t=7991
+
+0.02 (2011-07-23)
+* ported to SNROM
