@@ -21,4 +21,10 @@ Git 2016-11-15
 * other things listed at http://forums.nesdev.com/viewtopic.php?f=22&t=7991
 
 0.02 (2011-07-23)
-* ported to SNROM
+* added comment about the holy war over clearing or not clearing RAM
+* added notice about line breaks in Windows Notepad
+  (requested by 3GenGames)
+* added SNROM version with CHR RAM and inter-bank calls
+
+0.01 (2011-07-20)
+* initial release
