@@ -8,6 +8,9 @@
 ; code copies.  This file is offered as-is, without any warranty.
 ;
 
+.ifndef NES_INC
+.define NES_INC 1
+
 PPUCTRL = $2000
 NT_2000 = $00
 NT_2400 = $01
@@ -53,3 +56,5 @@ KEY_UP     = %00001000
 KEY_DOWN   = %00000100
 KEY_LEFT   = %00000010
 KEY_RIGHT  = %00000001
+
+.endif
