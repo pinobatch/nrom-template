@@ -77,11 +77,11 @@ probably need to install it from source code.
         make
         make install prefix=~/.local
 
-   There's no `./configure` step, and `make install` reportedly
-   complained about there being no prefix var. (case sensitive?)
+   There's no `./configure` step, and the `prefix` is case sensitive.
 
 5. Insert the following in your `.bash_profile` or `.bashrc` file,
-   to automatically add the local executables to your PATH
+   to automatically add the local executables to your PATH the next
+   time you log in.
    
         if [ -d "$HOME/.local/bin" ] ; then
             PATH="$HOME/.local/bin:$PATH"
@@ -106,9 +106,9 @@ To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.5.2 - 2016-06-27, then under that, click
+3. Scroll down to Python 3.6.0 - 2016-12-23, then under that, click
    Windows x86 executable installer.
-4. In your web browser's downloads folder, run `python-3.5.2.exe`
+4. In your web browser's downloads folder, run `python-3.6.0.exe`
 5. Follow the prompts through the installer wizard.
 
 To install [Pillow] under Windows, open a Command Prompt and enter
@@ -131,7 +131,7 @@ need to add the folders containing `ca65.exe`, `ld65.exe`, and
 `python.exe` to the `Path` environment variable.  Because the steps
 for setting environment variables differ between versions of Windows,
 you'll want to search the web for `windows x.x path variable`,
-replacing `x.x` with `7`, `8.1`, etc.
+replacing `x.x` with `7`, `8.1`, `10`, etc.
 
 Then open the makefile in a text editor and change EMU to the path
 of whatever NES emulator you have installed.

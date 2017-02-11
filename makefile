@@ -29,6 +29,7 @@ imgdir = tilesets
 
 #EMU := "/C/Program Files/Nintendulator/Nintendulator.exe"
 EMU := fceux
+DEBUGEMU := ~/.wine/drive_c/Program\ Files\ \(x86\)/FCEUX/fceux.exe
 # other options for EMU are start (Windows) or gnome-open (GNOME)
 
 # Occasionally, you need to make "build tools", or programs that run
@@ -43,17 +44,24 @@ CFLAGS = -std=gnu99 -Wall -DNDEBUG -O
 
 # Windows needs .exe suffixed to the names of executables; UNIX does
 # not.  COMSPEC will be set to the name of the shell on Windows and
-# not defined on UNIX.
+# not defined on UNIX.  Also the Windows Python installer puts
+# py.exe in the path, but not python3.exe, which confuses MSYS Make.
 ifdef COMSPEC
-DOTEXE=.exe
+DOTEXE:=.exe
+PY:=py
 else
-DOTEXE=
+DOTEXE:=
+PY:=
 endif
 
-.PHONY: run dist zip clean
+.PHONY: run debug all dist zip clean
 
 run: $(title).nes
 	$(EMU) $<
+debug: $(title).nes
+	$(DEBUGEMU) $<
+
+all: $(title).nes
 
 # Rule to create or update the distribution zipfile by adding all
 # files listed in zip.in.  Actually the zipfile depends on every
@@ -107,9 +115,9 @@ $(title).chr: $(objdir)/bggfx.chr $(objdir)/spritegfx.chr
 	cat $^ > $@
 
 $(objdir)/%.chr: $(imgdir)/%.png
-	tools/pilbmp2nes.py $< $@
+	$(PY) tools/pilbmp2nes.py $< $@
 
 $(objdir)/%16.chr: $(imgdir)/%.png
-	tools/pilbmp2nes.py -H 16 $< $@
+	$(PY) tools/pilbmp2nes.py -H 16 $< $@
 
 
