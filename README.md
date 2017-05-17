@@ -106,9 +106,11 @@ To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.6.0 - 2016-12-23, then under that, click
-   Windows x86 executable installer.
-4. In your web browser's downloads folder, run `python-3.6.0.exe`
+3. Scroll down to Python 3.6.1 - 2017-03-21 (or whatever the latest
+   3.x release is), then under that, click Windows x86 executable
+   installer.
+4. In your web browser's downloads folder, run the downloaded
+   installer, whose name should resemble `python-3.6.1.exe`.
 5. Follow the prompts through the installer wizard.
 
 To install [Pillow] under Windows, open a Command Prompt and enter
