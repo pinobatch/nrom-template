@@ -126,7 +126,6 @@ To install cc65 under Windows:
 4. Open the zip file.
 5. Inside the zip file, open the bin folder.
 6. Drag `ca65.exe` and `ld65.exe` into a new folder.
-7. Add this folder to your "Path" environment variable.
 
 Finally, to make ca65, ld65, and Python available to Make, you'll
 need to add the folders containing `ca65.exe`, `ld65.exe`, and
@@ -169,13 +168,13 @@ what these mean.
 
 The tools
 ---------
-The `tools` folder contains a couple essential command-line programs
+In my projects, the `tools` folder contains command-line programs
 written in Python to convert graphics into a form usable by the NES.
-The makefile contains instructions to run the program again whenever
-the original asset data changes.
+The makefile contains instructions to run the converter program again
+whenever the original asset data changes.
 
-* `pilbmp2nes.py` is a program to convert bitmap images in PNG or
-  BMP format into tile data usable by several classic video game
+* `pilbmp2nes.py` converts indexed bitmap images in PNG or BMP
+  format into tile data usable by several classic video game
   consoles.  It has several options to control the data format; use
   `pilbmp2nes.py --help` from the command prompt to see them all.
 
@@ -186,6 +185,8 @@ Greets
 * [FCEUX] team
 * Joe Parsell (Memblers) for getting me into NESdev in the first place
 * Jeremy Chadwick (koitsu) for more code organization tips
+* Greg Caldwell of Retrotainment Games for testing the Windows
+  instructions
 
 [NESdev Wiki]: http://wiki.nesdev.com/
 [FCEUX]: http://fceux.com/
