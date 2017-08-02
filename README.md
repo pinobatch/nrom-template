@@ -98,19 +98,19 @@ MSYS is through the automated installer provided by devkitPro.
 1. Visit [devkitPro Getting Started].
 2. Follow the instructions there to download and run the
    devkitPro Automated Installer.
-3. In the installer, check only MSYS.  Don't check devkitARM,
-   devkitPPC, devkitPSP, or any of the libraries for newer platforms
-   unless you want to start developing for one of those soon.
+3. Uncheck devkitARM, devkitPPC, devkitPSP, and libraries for newer
+   platforms (libnds, etc.) unless you plan to start developing for
+   one of those soon.  Otherwise, you're just here for MSYS.
    
 To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.6.1 - 2017-03-21 (or whatever the latest
+3. Scroll down to Python 3.6.2 - 2017-07-17 (or whatever the latest
    3.x release is), then under that, click Windows x86 executable
    installer.
 4. In your web browser's downloads folder, run the downloaded
-   installer, whose name should resemble `python-3.6.1.exe`.
+   installer, whose name should resemble `python-3.6.2.exe`.
 5. Follow the prompts through the installer wizard.
 
 To install [Pillow] under Windows, open a Command Prompt and enter
