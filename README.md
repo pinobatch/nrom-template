@@ -101,7 +101,15 @@ MSYS is through the automated installer provided by devkitPro.
 3. Uncheck devkitARM, devkitPPC, devkitPSP, and libraries for newer
    platforms (libnds, etc.) unless you plan to start developing for
    one of those soon.  Otherwise, you're just here for MSYS.
-   
+
+Another way to install MSYS is as part of [Git for Windows].
+Because the version of MSYS packaged with Git omits Make, follow
+[evanwill's instructions] to download the latest Make without Guile
+from [ezwinports] and merge it into `C:\Program Files\Git\mingw64`.
+If you go this route, it appears to automatically add to your Path
+a folder called `bin` directly inside your user profile folder, such as
+`C:\Users\Pino\bin`, so you can put things like `ca65.exe` there.
+
 To install Python under Windows:
 
 1. Visit [Python home page].
@@ -127,20 +135,30 @@ To install cc65 under Windows:
 5. Inside the zip file, open the bin folder.
 6. Drag `ca65.exe` and `ld65.exe` into a new folder.
 
-Finally, to make ca65, ld65, and Python available to Make, you'll
-need to add the folders containing `ca65.exe`, `ld65.exe`, and
-`python.exe` to the `Path` environment variable.  Because the steps
-for setting environment variables differ between versions of Windows,
-you'll want to search the web for `windows x.x path variable`,
-replacing `x.x` with `7`, `8.1`, `10`, etc.
+After this, `py.exe` should be in the `Path` already and thus available to
+Make.  To make `ca65` and `ld65` available to Make, you'll need to add the
+folder containing `ca65.exe` and `ld65.exe`, and `python.exe` to the `Path`
+environment variable.  Because the steps for setting environment variable
+differ between versions of Windows, you'll want to search the web for
+`windows x.x path variable`, replacing `x.x` with `7`, `8.1`, `10`, etc.
+(Again, this appears to be done for you if you use Git Bash.)
 
 Then open the makefile in a text editor and change EMU to the path
 of whatever NES emulator you have installed.
 
+To get `make dist` to build a zipfile, you'll need to install the Zip and UnZip
+command-line tools published by [Info-ZIP].  Be careful, as `unz600xn.exe` is a
+self-extracting archive that extracts multiple files to the current directory,
+like a tarbomb, so run it in a new folder.
+
 [devkitPro Getting Started]: http://devkitpro.org/wiki/Getting_Started
+[Git for Windows]: https://git-scm.com/download/win
+[evanwill's instructions]: https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058
+[ezwinports]: https://sourceforge.net/projects/ezwinports/files/
 [Python home page]: https://www.python.org/
 [Pillow]: https://pypi.python.org/pypi/Pillow
 [cc65 introduction]: http://cc65.github.io/cc65/
+[Info-ZIP]: ftp://ftp.info-zip.org/pub/infozip/win32/
 
 Organization of the program
 ---------------------------
