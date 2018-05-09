@@ -4,7 +4,7 @@ Windows operating system, but it doesn't recognize line breaks in
 text files made on Linux or any other UNIX-like operating system.  
 Text files with UNIX line breaks display correctly in WordPad, 
 Notepad++, Programmer's Notepad, Gedit, or a web browser, just 
-not in Windows Notepad.
+not in Windows Notepad prior to the forthcoming Windows 10 RS5.
 
 NROM template
 =============
@@ -75,7 +75,7 @@ probably need to install it from source code.
 
         cd [path to where you unzipped cc65]
         make
-        make install prefix=~/.local
+        make install PREFIX="$HOME/.local"
 
    There's no `./configure` step, and the `prefix` is case sensitive.
 
