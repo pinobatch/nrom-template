@@ -77,10 +77,10 @@ probably need to install it from source code.
         make
         make install PREFIX="$HOME/.local"
 
-   There's no `./configure` step, and the `prefix` is case sensitive.
+   There's no `./configure` step, and the `PREFIX` is case sensitive.
 
 5. Insert the following in your `.bash_profile` or `.bashrc` file,
-   to automatically add the local executables to your PATH the next
+   to automatically add the local executables to your `PATH` the next
    time you log in.
    
         if [ -d "$HOME/.local/bin" ] ; then
@@ -91,12 +91,23 @@ probably need to install it from source code.
 
 ### On Windows
 
-The MSYS project ports Make, Coreutils, and other key parts of the
-GNU operating environment to Windows.  [Git for Windows] includes
-Coreutils.  To add Make, follow [evanwill's instructions] to download
-the latest Make without Guile from [ezwinports] and merge it into
-`C:\Program Files\Git\mingw64`.  This method adds to your Path a
-folder called `bin` directly inside your user profile folder, such
+`PATH` is an environment variable that tells the command prompt which
+folders to look in when you type a program name.  The convention on
+UNIX is to install all programs to a handful of folders.  On Windows,
+it's more common to install programs in each package to a separate
+folder and then add each folder to `Path` for Windows to find it.
+Because the steps for setting `Path` differ between versions of
+Windows, you'll want to search the web for
+`windows x.x path variable`, replacing `x.x` with `7`, `8.1`, `10`,
+etc.  In particular, Windows 10 makes adding folders to `Path` much
+more convenient than previous Windows versions.
+
+The MSYS project ports Make, Coreutils, Bash, and other key parts of
+the GNU operating environment to Windows.  [Git for Windows] includes
+Bash and Coreutils.  To add Make, follow [evanwill's instructions] to
+download the latest Make without Guile from [ezwinports] and merge
+it into `C:\Program Files\Git\mingw64`.  This method adds to `Path`
+a folder called `bin` directly inside your user profile folder, such
 as `C:\Users\Pino\bin`, so you can put things like `ca65.exe` there.
 
 Another way to install MSYS is through the automated installer
@@ -121,6 +132,8 @@ To install Python under Windows:
    installer, whose name should resemble `python-3.6.2.exe`.
 5. Follow the prompts through the installer wizard.
 
+Python's installer also puts `py.exe` into `Path` for you.
+
 To install [Pillow] under Windows, open a Command Prompt and enter
 the following command:
 
@@ -135,21 +148,18 @@ To install cc65 under Windows:
 5. Inside the zip file, open the bin folder.
 6. Drag `ca65.exe` and `ld65.exe` into a new folder.
 
-After this, `py.exe` should be in the `Path` already and thus available to
-Make.  To make `ca65` and `ld65` available to Make, you'll need to add the
-folder containing `ca65.exe` and `ld65.exe`, and `python.exe` to the `Path`
-environment variable.  Because the steps for setting environment variable
-differ between versions of Windows, you'll want to search the web for
-`windows x.x path variable`, replacing `x.x` with `7`, `8.1`, `10`, etc.
-(Again, this appears to be done for you if you use Git Bash.)
+To make `ca65` and `ld65` available to Make, you'll need to add the
+folder containing `ca65.exe` and `ld65.exe` to `Path` or put them in
+a folder already on `Path`.
 
 Then open the makefile in a text editor and change EMU to the path
 of whatever NES emulator you have installed.
 
-To get `make dist` to build a zipfile, you'll need to install the Zip and UnZip
-command-line tools published by [Info-ZIP].  Be careful, as `unz600xn.exe` is a
-self-extracting archive that extracts multiple files to the current directory,
-like a tarbomb, so run it in a new folder.
+To get `make dist` to build a zipfile, you'll need to install the Zip
+and UnZip command-line tools published by [Info-ZIP].  Be careful, as
+`unz600xn.exe` is a self-extracting archive that extracts multiple
+files to the current directory, like a tarbomb, so run it in a new
+folder and then copy `zip.exe` and `unzip.exe` to a folder on `Path`.
 
 [devkitPro Getting Started]: http://devkitpro.org/wiki/Getting_Started
 [Git for Windows]: https://git-scm.com/download/win
