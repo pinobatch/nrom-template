@@ -4,7 +4,7 @@ Windows operating system, but it doesn't recognize line breaks in
 text files made on Linux or any other UNIX-like operating system.  
 Text files with UNIX line breaks display correctly in WordPad, 
 Notepad++, Programmer's Notepad, Gedit, or a web browser, just 
-not in Windows Notepad prior to the forthcoming Windows 10 RS5.
+not in Windows Notepad prior to the Windows 10 October 2018 Update.
 
 NROM template
 =============
@@ -91,24 +91,24 @@ probably need to install it from source code.
 
 ### On Windows
 
-The MSYS project ports Make, Coreutils, and other key parts of
-the GNU operating environment to Windows.  An easy way to install
-MSYS is through the automated installer provided by devkitPro.
+The MSYS project ports Make, Coreutils, and other key parts of the
+GNU operating environment to Windows.  [Git for Windows] includes
+Coreutils.  To add Make, follow [evanwill's instructions] to download
+the latest Make without Guile from [ezwinports] and merge it into
+`C:\Program Files\Git\mingw64`.  This method adds to your Path a
+folder called `bin` directly inside your user profile folder, such
+as `C:\Users\Pino\bin`, so you can put things like `ca65.exe` there.
+
+Another way to install MSYS is through the automated installer
+provided by devkitPro.  This method may be more convenient if you
+also develop for Game Boy Advance or Nintendo DS.
 
 1. Visit [devkitPro Getting Started].
 2. Follow the instructions there to download and run the
    devkitPro Automated Installer.
 3. Uncheck devkitARM, devkitPPC, devkitPSP, and libraries for newer
    platforms (libnds, etc.) unless you plan to start developing for
-   one of those soon.  Otherwise, you're just here for MSYS.
-
-Another way to install MSYS is as part of [Git for Windows].
-Because the version of MSYS packaged with Git omits Make, follow
-[evanwill's instructions] to download the latest Make without Guile
-from [ezwinports] and merge it into `C:\Program Files\Git\mingw64`.
-If you go this route, it appears to automatically add to your Path
-a folder called `bin` directly inside your user profile folder, such as
-`C:\Users\Pino\bin`, so you can put things like `ca65.exe` there.
+   one of those soon.  Leave Minimal System (MSYS) checked.
 
 To install Python under Windows:
 
