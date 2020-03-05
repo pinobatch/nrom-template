@@ -125,11 +125,12 @@ To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.6.2 - 2017-07-17 (or whatever the latest
-   3.x release is), then under that, click Windows x86 executable
-   installer.
+3. Scroll down to Python 3.8.2 - 2020-02-24 (or whatever the latest
+   3.x release is), then under that, click Windows x86-64 executable
+   installer.  (If you use 32-bit Windows, use the Windows x86
+   executable installer instead.)
 4. In your web browser's downloads folder, run the downloaded
-   installer, whose name should resemble `python-3.6.2.exe`.
+   installer, whose name should resemble `python-3.8.2-amd64.exe`.
 5. Follow the prompts through the installer wizard.
 
 Python's installer also puts `py.exe` into `Path` for you.
@@ -186,7 +187,7 @@ Organization of the program
 * `bg.s`: Background graphics setup
 * `player.s`: Player sprite graphics setup and movement
 * `pads.s`: Read the controllers in a DPCM-safe manner
-* `ppuclear.s`: Useful subroutines for interacting with the S-PPU
+* `ppuclear.s`: Useful subroutines for interacting with the NES PPU
 
 Each source code file is made up of subroutines that start with
 `.proc` and end with `.endproc`.  See the [ca65 Users Guide] for
