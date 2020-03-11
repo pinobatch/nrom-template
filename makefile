@@ -78,6 +78,7 @@ $(title)-$(version).zip: zip.in $(title).nes README.md CHANGES.txt $(objdir)/ind
 # Build zip.in from the list of files in the Git tree
 zip.in:
 	git ls-files | grep -e "^[^.]" > $@
+	echo $(title).nes >> $@
 	echo zip.in >> $@
 
 $(objdir)/index.txt: makefile
