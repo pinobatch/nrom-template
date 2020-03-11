@@ -96,11 +96,16 @@ folders to look in when you type a program name.  The convention on
 UNIX is to install all programs to a handful of folders.  On Windows,
 it's more common to install programs in each package to a separate
 folder and then add each folder to `Path` for Windows to find it.
-Because the steps for setting `Path` differ between versions of
-Windows, you'll want to search the web for
-`windows x.x path variable`, replacing `x.x` with `7`, `8.1`, `10`,
-etc.  In particular, Windows 10 makes adding folders to `Path` much
-more convenient than previous Windows versions.
+Because the steps for setting `Path` differ between Windows versions,
+you'll want to search the web for `windows x.x path variable`,
+replacing `x.x` with `7`, `8.1`, `10`, etc.
+
+In particular, Windows 10 makes adding folders to `Path`
+more convenient than previous Windows versions.  Follow
+[Architect Ryan's guide] with one change:  Add the path to the user
+variables, not the system variables.  (User variables take effect
+after you restart the Command Prompt or Git Bash.  System variables
+take effect after you restart Windows.)
 
 The MSYS project ports Make, Coreutils, Bash, and other key parts of
 the GNU operating environment to Windows.  [Git for Windows] includes
@@ -162,10 +167,11 @@ and UnZip command-line tools published by [Info-ZIP].  Be careful, as
 files to the current directory, like a tarbomb, so run it in a new
 folder and then copy `zip.exe` and `unzip.exe` to a folder on `Path`.
 
-[devkitPro Getting Started]: http://devkitpro.org/wiki/Getting_Started
+[Architect Ryan's guide]: https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/
 [Git for Windows]: https://git-scm.com/download/win
 [evanwill's instructions]: https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058
 [ezwinports]: https://sourceforge.net/projects/ezwinports/files/
+[devkitPro Getting Started]: http://devkitpro.org/wiki/Getting_Started
 [Python home page]: https://www.python.org/
 [Pillow]: https://pypi.python.org/pypi/Pillow
 [cc65 introduction]: http://cc65.github.io/cc65/
