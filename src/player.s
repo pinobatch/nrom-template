@@ -239,27 +239,21 @@ not_flipped:
   ; the eight frames start at $10, $12, ..., $1E
   ; 0: still; 1-7: scooting
   lda player_frame
+  tay
   asl a
   ora #$10
   sta row_first_tile
-  
-  ; frame 7 is special: the player needs to be drawn 1 unit forward
-  ; because of how far he's leaned forward
-  lda player_frame
-  cmp #7
-  bcc not_frame_7
-  
-  ; here, carry is set, so anything you add will get another 1
-  ; added to it, so subtract 1 when constructing the value to add
-  ; to the player's X position
-  lda #1 - 1  ; facing right: move forward by 1
+
+  ; Correct for each cel's horizontal hotspot offset
   bit player_facing
-  bvc f7_not_flipped
-  lda #<(-1 - 1)  ; facing left: move left by 1
-f7_not_flipped:
+  lda player_frame_to_xoffset,y
+  ; clc  ; set by previous ASL A
+  bvc xoffset_not_flipped
+    eor #$FF
+    sec
+  xoffset_not_flipped:
   adc draw_x_left
   sta draw_x_left
-not_frame_7:
 
   ldx oam_used
 rowloop:
@@ -310,3 +304,8 @@ tileloop:
   rts
 .endproc
 
+.segment "RODATA"
+; In frame 7, the player needs to be drawn 1 pixel forward
+; because of how far he's leaned forward
+player_frame_to_xoffset:
+  .byte 0, 0, 0, 0, 0, 0, 0, 1
