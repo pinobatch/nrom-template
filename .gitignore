@@ -9,6 +9,7 @@
 /nsfmap.txt
 __pycache__/
 *.pyc
+nrom-template.nes
 
 # this is NES homebrew, not DSiWare
 *.DS_Store

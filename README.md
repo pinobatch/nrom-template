@@ -161,6 +161,11 @@ a folder already on `Path`.
 Then open the makefile in a text editor and change EMU to the path
 of whatever NES emulator you have installed.
 
+If `make` prints nothing, not even "command not found" or "No targets
+specified and no makefile found", then you may have accidentally
+downloaded and installed Make with Guile.  Download the version
+_without Guile_ and try again.
+
 To get `make dist` to build a zipfile, you'll need to install the Zip
 and UnZip command-line tools published by [Info-ZIP].  Be careful, as
 `unz600xn.exe` is a self-extracting archive that extracts multiple
