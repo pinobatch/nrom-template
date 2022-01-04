@@ -46,7 +46,7 @@ CFLAGS = -std=gnu99 -Wall -DNDEBUG -O
 # not.  COMSPEC will be set to the name of the shell on Windows and
 # not defined on UNIX.  Also the Windows Python installer puts
 # py.exe in the path, but not python3.exe, which confuses MSYS Make.
-ifdef COMSPEC
+ifeq ($(OS), Windows_NT)
 DOTEXE:=.exe
 PY:=py
 else
@@ -82,7 +82,7 @@ zip.in:
 	echo zip.in >> $@
 
 $(objdir)/index.txt: makefile
-	echo Files produced by build tools go here, but caulk goes where? > $@
+	echo Files produced by build tools go here > $@
 
 clean:
 	-rm $(objdir)/*.o $(objdir)/*.s $(objdir)/*.chr
@@ -108,7 +108,7 @@ $(objdir)/main.o: $(objdir)/bggfx.chr $(objdir)/spritegfx.chr
 # has no music engine, but it's available online at
 # http://wiki.nesdev.com/w/index.php/APU_period_table
 $(objdir)/ntscPeriods.s: tools/mktables.py
-	$< period $@
+	$(PY) $< period $@
 
 # Rules for CHR ROM
 

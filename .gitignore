@@ -2,6 +2,10 @@
 *.o
 *~
 *.chr
+*.cdl
+*.nes
+*.nl
+*.dbg
 /obj/nes/*.s
 /zip.in
 *.nes.deb
