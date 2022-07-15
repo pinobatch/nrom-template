@@ -5,7 +5,7 @@
 ; Game variables
 player_xlo:       .res 1  ; horizontal position is xhi + xlo/256 px
 player_xhi:       .res 1
-player_dxlo:      .res 1  ; speed in pixels per 256 s
+player_dxlo:      .res 1  ; signed speed in pixels per 256 frames
 player_yhi:       .res 1
 player_facing:    .res 1
 player_frame:     .res 1
