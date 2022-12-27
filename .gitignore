@@ -14,6 +14,7 @@
 __pycache__/
 *.pyc
 nrom-template.nes
+nrom-template-*.zip
 
 # this is NES homebrew, not DSiWare
 *.DS_Store
