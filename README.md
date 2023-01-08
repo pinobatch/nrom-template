@@ -36,9 +36,9 @@ You'll need the following software installed to build this demo:
 
 It also requires general familiarity with the command prompt.
 You are encouraged to read and understand the articles on general
-computer science topics listed at [Before the basics].
+computer science topics listed at "[Before the basics]" on NESdev Wiki.
 
-[Before the basics]: http://wiki.nesdev.com/w/index.php/Before_the_basics
+[Before the basics]: https://www.nesdev.org/wiki/Before_the_basics
 
 ### On Linux
 
@@ -47,23 +47,22 @@ To install Make, Python 3, and Pillow under Ubuntu:
 1. Open a terminal.
 2. Type the following, followed by the Enter key:
 
-        sudo apt-get install build-essential python3-pil
+        sudo apt install build-essential python3-pil
 
 3. Type your password to authorize the installation.
 
 To install Make, Python 3, and Pillow under Fedora:
-(instructions suggested by jroatch; not tested)
+(instructions suggested by jroatch; not tested; maybe outdated)
 
 1. Open a terminal and use `su` to become root.
 2. Type the following, followed by the Enter key:
 
         yum install make automake gcc gcc-c++ python3 python3-pillow
 
-Because cc65 is a fairly niche tool, and because the C compiler
-portion (which this demo does not use) used to have non-free
-restrictions on distribution, your Linux distribution's default
-repository is unlikely to provide cc65.  This means you will
-probably need to install it from source code.
+Because cc65 is a fairly niche tool, and because part of the
+package once had non-free restrictions on distribution, your
+Linux distribution's default repository might not provide cc65.
+If not, you can install it from source code.
 
 1. Visit [cc65 on GitHub].
 2. Click Download ZIP
@@ -79,7 +78,7 @@ probably need to install it from source code.
 5. Insert the following in your `.bash_profile` or `.bashrc` file,
    to automatically add the local executables to your `PATH` the next
    time you log in.
-   
+
         if [ -d "$HOME/.local/bin" ] ; then
             PATH="$HOME/.local/bin:$PATH"
         fi
@@ -155,8 +154,10 @@ To make `ca65` and `ld65` available to Make, you'll need to add the
 folder containing `ca65.exe` and `ld65.exe` to `Path` or put them in
 a folder already on `Path`.
 
-Then open the makefile in a text editor and change EMU to the path
-of whatever NES emulator you have installed.
+If `make nrom-template.nes` prints "up to date" and `make run` prints
+"command not found", the makefile is trying to run the built ROM in
+an emulator.  You'll need to open the makefile in a text editor and
+change `EMU` to the path of your preferred emulator.
 
 If `make` prints nothing, not even "command not found" or "No targets
 specified and no makefile found", then you may have accidentally
