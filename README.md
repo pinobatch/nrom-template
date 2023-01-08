@@ -1,10 +1,5 @@
 IF THIS FILE HAS NO LINE BREAKS:  View it in a web browser.  
-Windows Notepad is a very popular text editor that comes with the 
-Windows operating system, but it doesn't recognize line breaks in 
-text files made on Linux or any other UNIX-like operating system.  
-Text files with UNIX line breaks display correctly in WordPad, 
-Notepad++, Programmer's Notepad, Gedit, or a web browser, just 
-not in Windows Notepad prior to the Windows 10 October 2018 Update.
+(Some text editors do not understand UNIX-style line breaks.)
 
 NROM template
 =============
