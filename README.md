@@ -105,7 +105,13 @@ take effect after you restart Windows.)
 
 The MSYS project ports Make, Coreutils, Bash, and other key parts of
 the GNU operating environment to Windows.  [Git for Windows] includes
-Bash and Coreutils.  To add Make, follow [evanwill's instructions] to
+Bash and Coreutils.  If you're installing Git for the first time,
+keep the default settings except for two.  If you don't know what a
+`:wq` is, change the editor from Vim to something else.
+Then on "Configuring the terminal emulator to use with Git Bash",
+select "Use Windows' default console window" instead of WinPTY
+so that you can see the output of `make`.
+To add Make, follow [evanwill's instructions] to
 download the latest Make without Guile from [ezwinports] and merge
 it into `C:\Program Files\Git\mingw64`.  This method adds to `Path`
 a folder called `bin` directly inside your user profile folder, such
@@ -126,10 +132,11 @@ To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.8.2 - 2020-02-24 (or whatever the latest
-   3.x release is), then under that, click Windows x86-64 executable
-   installer.  (If you use 32-bit Windows, use the Windows x86
-   executable installer instead.)
+3. Scroll down to Python 3.10.11 - April 5, 2023 (or the latest
+   3.x release), then under that, click Windows installer
+   (64-bit).  (If you use 32-bit Windows, use the 32-bit
+   installer instead.  If you use Windows 7 or Windows 8.1,
+   use Python 3.8.16.)
 4. In your web browser's downloads folder, run the downloaded
    installer, whose name should resemble `python-3.8.2-amd64.exe`.
 5. Follow the prompts through the installer wizard.
@@ -148,11 +155,13 @@ To install cc65 under Windows:
 3. Click "Windows Snapshot" to download a zip file.
 4. Open the zip file.
 5. Inside the zip file, open the bin folder.
-6. Drag `ca65.exe` and `ld65.exe` into a new folder.
+6. Drag `ca65.exe`, `ld65.exe`, and `od65.exe` into a new folder.
 
 To make `ca65` and `ld65` available to Make, you'll need to add the
 folder containing `ca65.exe` and `ld65.exe` to `Path` or put them in
-a folder already on `Path`.
+a folder already on `Path`.  Though `od65.exe` is not required to
+build nrom-template, some programs that use a mapper need `od65` to
+determine which bank everything goes in.
 
 If `make nrom-template.nes` prints "up to date" and `make run` prints
 "command not found", the makefile is trying to run the built ROM in
