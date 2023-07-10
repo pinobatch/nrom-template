@@ -35,6 +35,10 @@ You'll need the following software installed to build this demo:
   file management and text processing
 
 It also requires general familiarity with the command prompt.
+Many tools used by programmers have a command-line interface (CLI).
+Though this may be unfamiliar to long-time users of graphical user
+interfaces (GUI), a CLI tool is easier to include in an automated
+process of building an NES game from source code.
 You are encouraged to read and understand the articles on general
 computer science topics listed at "[Before the basics]" on NESdev Wiki.
 
@@ -90,27 +94,40 @@ If not, you can install it from source code.
 `PATH` is an environment variable that tells the command prompt which
 folders to look in when you type a program name.  The convention on
 UNIX is to install all programs to a handful of folders.  On Windows,
-it's more common to install programs in each package to a separate
-folder and then add each folder to `Path` for Windows to find it.
+it's more common to install programs to separate folders, with one
+folder for each package, and then add each package's folder to `Path`
+for Windows to find it.
+
 Because the steps for setting `Path` differ between Windows versions,
 you'll want to search the web for `windows x.x path variable`,
 replacing `x.x` with `7`, `8.1`, `10`, etc.
+In particular, Windows 10 makes adding folders to `Path` more
+convenient than previous Windows versions.  [Architect Ryan's guide]
+has screenshots of the following process:
 
-In particular, Windows 10 makes adding folders to `Path`
-more convenient than previous Windows versions.  Follow
-[Architect Ryan's guide] with one change:  Add the path to the user
-variables, not the system variables.  (User variables take effect
-after you restart the Command Prompt or Git Bash.  System variables
-take effect after you restart Windows.)
+1. Open the Start Menu.
+2. Type `environment`.
+3. Choose "Edit environment variables for your account".
+4. Under "User variables", select `Path` and click "Edit..."
+5. In "Edit Environment Variables`, add `%USERPROFILE%\bin`.
 
-The MSYS project ports Make, Coreutils, Bash, and other key parts of
-the GNU operating environment to Windows.  [Git for Windows] includes
-Bash and Coreutils.  If you're installing Git for the first time,
-keep the default settings except for two.  If you don't know what a
-`:wq` is, change the editor from Vim to something else.
-Then on "Configuring the terminal emulator to use with Git Bash",
-select "Use Windows' default console window" instead of WinPTY
-so that you can see the output of `make`.
+User variables take effect after you restart the Command Prompt or
+Git Bash.  System variables take effect after you restart Windows.
+
+If your PC can run Windows Subsystem for Linux (WSL) 2, install WSL
+with Ubuntu and follow the Linux instructions above.  Otherwise,
+you'll be installing MSYS2, a port of Make, Coreutils, Bash, and
+other key parts of the GNU operating environment to Windows.
+[Git for Windows] includes Bash and Coreutils.  If you're installing
+Git for the first time, keep the default settings except for two.
+
+- If you don't know what a `:wq` is, change the editor from Vim
+  to something else.
+- On "Configuring the terminal emulator to use with Git Bash",
+  select "Use Windows' default console window" instead of MinTTY
+  so that you can see the output of `make` without needing to
+  prefix most commands with `winpty`.
+
 To add Make, follow [evanwill's instructions] to
 download the latest Make without Guile from [ezwinports] and merge
 it into `C:\Program Files\Git\mingw64`.  This method adds to `Path`
@@ -132,7 +149,7 @@ To install Python under Windows:
 
 1. Visit [Python home page].
 2. Under Downloads, click Windows.
-3. Scroll down to Python 3.10.11 - April 5, 2023 (or the latest
+3. Scroll down to Python 3.11.4 (or the latest
    3.x release), then under that, click Windows installer
    (64-bit).  (If you use 32-bit Windows, use the 32-bit
    installer instead.  If you use Windows 7 or Windows 8.1,
@@ -165,7 +182,7 @@ determine which bank everything goes in.
 
 If `make nrom-template.nes` prints "up to date" and `make run` prints
 "command not found", the makefile is trying to run the built ROM in
-an emulator.  You'll need to open the makefile in a text editor and
+an emulator.  Open the makefile in a text editor and
 change `EMU` to the path of your preferred emulator.
 
 If `make` prints nothing, not even "command not found" or "No targets
