@@ -109,7 +109,7 @@ has screenshots of the following process:
 2. Type `environment`.
 3. Choose "Edit environment variables for your account".
 4. Under "User variables", select `Path` and click "Edit..."
-5. In "Edit Environment Variables`, add `%USERPROFILE%\bin`.
+5. In "Edit Environment Variables", add `%USERPROFILE%\bin`.
 
 User variables take effect after you restart the Command Prompt or
 Git Bash.  System variables take effect after you restart Windows.
