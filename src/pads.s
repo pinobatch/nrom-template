@@ -1,6 +1,6 @@
 ;
 ; NES controller reading code
-; Copyright 2009-2011 Damian Yerrick
+; Copyright 2009-2023 Damian Yerrick
 ;
 ; Copying and distribution of this file, with or without
 ; modification, are permitted in any medium without royalty provided
@@ -8,10 +8,25 @@
 ; code copies.  This file is offered as-is, without any warranty.
 ;
 
+; Significant changes
 ;
+; 2023-11: Damian Yerrick added a historical note about rereading
 ; 2011-07: Damian Yerrick added labels for the local variables and
-;          copious comments and made USE_DAS a compile-time option
+;          copious comments and made USE_DAS a build-time option
+
+; Historical note related to DMC DMA glitch avoidance
 ;
+; This routine reads the controller twice and discards non-matching
+; presses.  As of the second half of 2011 when nrom-template was
+; first published, this method was state of the art for avoiding
+; read corruption caused by DMC DMA fetches.
+;
+; In 2016, Rahsennor invented a way to synchronize to OAM DMA that
+; even more reliably avoids read corruption in many cases.
+; https://www.nesdev.org/wiki/Controller_reading_code#DPCM_Safety_using_OAM_DMA
+; This technique has a couple drawbacks, such as forbidding reading
+; the controller on frames when a sample is playing and OAM DMA did
+; not occur.
 
 .export read_pads
 .importzp cur_keys, new_keys
