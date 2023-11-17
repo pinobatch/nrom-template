@@ -19,6 +19,6 @@
 .global ppu_clear_nt, ppu_clear_oam, ppu_screen_on
 
 ; pads.s
-.global read_pads
+.global read_pads, run_dma_and_read_pads, autorepeat
 
 .endif

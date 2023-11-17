@@ -14,7 +14,8 @@ Concepts illustrated:
 * init code
 * setting up a static background
 * structure of a game loop
-* DPCM-safe controller reading
+* OAM DMA-synchronized controller reading for better resistance to
+  DPCM-related bit deletion than most of the licensed library
 * 8.8 fixed-point arithmetic
 * acceleration-based character movement physics
 * sprite drawing and animation, with horizontal flipping

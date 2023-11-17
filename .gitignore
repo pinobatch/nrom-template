@@ -9,6 +9,7 @@
 /obj/nes/*.s
 /zip.in
 *.nes.deb
+*.fdb
 /map.txt
 /nsfmap.txt
 __pycache__/
