@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 #
 # Makefile for NES game
-# Copyright 2011-2014 Damian Yerrick
+# Copyright 2011-2024 Damian Yerrick
 #
 # Copying and distribution of this file, with or without
 # modification, are permitted in any medium without royalty
@@ -10,37 +10,36 @@
 #
 
 # These are used in the title of the NES program and the zip file.
-title = nrom-template
-version = 0.05
+title := nrom-template
+version := 0.05
 
 # Space-separated list of assembly language files that make up the
 # PRG ROM.  If it gets too long for one line, you can add a backslash
 # (the \ character) at the end of the line and continue on the next.
-objlist = nrom init main bg player \
-pads ppuclear
+objlist := \
+  init main bg player \
+  pads ppuclear
 
+AS65 := ca65
+LD65 := ld65
+CFLAGS65 := 
+objdir := obj/nes
+srcdir := src
+imgdir := tilesets
 
-AS65 = ca65
-LD65 = ld65
-CFLAGS65 = 
-objdir = obj/nes
-srcdir = src
-imgdir = tilesets
-
-#EMU := "/C/Program Files/Nintendulator/Nintendulator.exe"
 EMU := fceux
-DEBUGEMU := ~/.wine/drive_c/Program\ Files\ \(x86\)/FCEUX/fceux.exe
-# other options for EMU are start (Windows) or gnome-open (GNOME)
+DEBUGEMU := Mesen
+# other options for EMU are start "" (Windows) or xdg-open (UNIX)
 
 # Occasionally, you need to make "build tools", or programs that run
 # on a PC that convert, compress, or otherwise translate PC data
 # files into the format that the NES program expects.  Some people
-# write their build tools in C or C++; others prefer to write them in
-# Perl, PHP, or Python.  This program doesn't use any C build tools,
-# but if yours does, it might include definitions of variables that
-# Make uses to call a C compiler.
-CC = gcc
-CFLAGS = -std=gnu99 -Wall -DNDEBUG -O
+# write build tools in C, C++, or Rust; others prefer to write them
+# in Perl, PHP, or Python.  This program doesn't use any C build
+# tools, but if yours does, it might include definitions of variables
+# that Make uses to call a C compiler.
+CC := gcc
+CFLAGS := -std=gnu17 -Wall -DNDEBUG -Og
 
 # Windows needs .exe suffixed to the names of executables; UNIX does
 # not.  COMSPEC will be set to the name of the shell on Windows and
@@ -51,7 +50,7 @@ DOTEXE:=.exe
 PY:=py
 else
 DOTEXE:=
-PY:=
+PY:=python3
 endif
 
 .PHONY: run debug all dist zip clean
@@ -61,24 +60,25 @@ run: $(title).nes
 debug: $(title).nes
 	$(DEBUGEMU) $<
 
-all: $(title).nes
+all: $(title).nes $(title)256.nes
 
 # Rule to create or update the distribution zipfile by adding all
-# files listed in zip.in.  Actually the zipfile depends on every
-# single file in zip.in, but currently we use changes to the compiled
-# program, makefile, and README as a heuristic for when something was
-# changed.  It won't see changes to docs or tools, but usually when
-# docs changes, README also changes, and when tools changes, the
-# makefile changes.
+# files listed in zip.in.  Though the zipfile depends on every file
+# listed in zip.in, Make can't see all dependencies.  Use changes to
+# the ROMs, makefile, and README as a heuristic for when something
+# was changed.  Tool changes usually imply makefile changes, and
+# docs changes usually imply README or CHANGES changes.
 dist: zip
 zip: $(title)-$(version).zip
-$(title)-$(version).zip: zip.in $(title).nes README.md CHANGES.txt $(objdir)/index.txt
+$(title)-$(version).zip: \
+  zip.in all README.md CHANGES.txt $(objdir)/index.txt
 	zip -9 -u $@ -@ < $<
 
-# Build zip.in from the list of files in the Git tree
+# Build zip.in from the list of files in the Git tree.
 zip.in:
 	git ls-files | grep -e "^[^.]" > $@
 	echo $(title).nes >> $@
+	echo $(title)256.nes >> $@
 	echo zip.in >> $@
 
 $(objdir)/index.txt: makefile
@@ -89,10 +89,14 @@ clean:
 
 # Rules for PRG ROM
 
-objlistntsc = $(foreach o,$(objlist),$(objdir)/$(o).o)
+objlist128 := $(foreach o,nrom $(objlist),$(objdir)/$(o).o)
+objlist256 := $(foreach o,nrom256 $(objlist),$(objdir)/$(o).o)
 
-map.txt $(title).nes: nrom128.cfg $(objlistntsc)
+map.txt $(title).nes: nrom128.cfg $(objlist128)
 	$(LD65) -o $(title).nes -m map.txt -C $^
+
+map256.txt $(title)256.nes: nrom256.cfg $(objlist256)
+	$(LD65) -o $(title)256.nes -m map256.txt -C $^
 
 $(objdir)/%.o: $(srcdir)/%.s $(srcdir)/nes.inc $(srcdir)/global.inc
 	$(AS65) $(CFLAGS65) $< -o $@
@@ -120,5 +124,3 @@ $(objdir)/%.chr: $(imgdir)/%.png
 
 $(objdir)/%16.chr: $(imgdir)/%.png
 	$(PY) tools/pilbmp2nes.py -H 16 $< $@
-
-

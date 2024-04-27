@@ -11,6 +11,7 @@
 *.nes.deb
 *.fdb
 /map.txt
+/map256.txt
 /nsfmap.txt
 __pycache__/
 *.pyc
@@ -19,5 +20,3 @@ nrom-template-*.zip
 
 # this is NES homebrew, not DSiWare
 *.DS_Store
-
-
