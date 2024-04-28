@@ -81,11 +81,11 @@ zip.in:
 	echo $(title)256.nes >> $@
 	echo zip.in >> $@
 
-$(objdir)/index.txt: makefile
+$(objdir)/index.txt: GNUmakefile
 	echo Files produced by build tools go here > $@
 
 clean:
-	-rm $(objdir)/*.o $(objdir)/*.s $(objdir)/*.chr
+	rm -f $(objdir)/*.o $(objdir)/*.s $(objdir)/*.chr
 
 # Rules for PRG ROM
 
