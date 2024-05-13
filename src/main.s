@@ -15,7 +15,7 @@ OAM = $0200
 
 ; Set TEST_DMC_DMA to nonzero to turn on a stress test of glitch
 ; avoidance in pads.s.  This emits a high-pitched tone.
-TEST_DMC_DMA = 1
+TEST_DMC_DMA = 0
 
 .segment "ZEROPAGE"
 nmis:          .res 1
