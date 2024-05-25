@@ -230,7 +230,33 @@ Each source code file is made up of subroutines that start with
 `.proc` and end with `.endproc`.  See the [ca65 Users Guide] for
 what these mean.
 
+### Linker configuration files
+
+A [linker configuration file] (or "config") specifies to `ld65` how a
+system's memory is organized.  In the case of the NES, this includes
+RAM in the Control Deck, ROM in the Game Pak, and (occasionally)
+extra RAM in the Game Pak.  Because each mapper organizes memory
+differently, each combination of mapper and memory size needs a
+specific config.  The `-C` option to `ld65` controls which config to
+use when producing a ROM.  This template provides three:
+
+* `nrom128.cfg`: NROM-128 board, 16 KiB PRG ROM, 8 KiB CHR ROM.
+  A `DMC` segment is present for sampled sounds, such as the barks
+  and quacks in *Duck Hunt*.
+* `nrom256-without-dmc.cfg`: NROM-256 board, 32 KiB PRG ROM, 8 KiB
+  CHR ROM.  Most beginner projects can start with this config,
+  which provides contiguous PRG ROM and no `DMC` segment.
+* `nrom256-with-dmc.cfg`: NROM-256 board, 32 KiB PRG ROM, 8 KiB
+  CHR ROM.  This config treats PRG ROM as two 16 KiB areas, a lower
+  half and an upper half.  This helps ensure that the `DMC` segment
+  for samples is in the upper half, as the NES sound hardware
+  requires.  Segments `CODE` and `RODATA` are placed in the upper
+  half.  If you see an error message `overflows memory area 'ROMC0'`,
+  you've run out of room in the upper half and can move things to
+  segments `CODE80` and `RODATA80` in the lower half.
+
 [ca65 Users Guide]: http://cc65.github.io/doc/ca65.html
+[linker configuration file]: https://cc65.github.io/doc/ld65.html#s5
 
 The tools
 ---------
@@ -250,7 +276,8 @@ Greets
 * [NESdev Wiki] and forum contributors
 * [FCEUX] team
 * Joe Parsell (Memblers) for getting me into NESdev in the first place
-* Jeremy Chadwick (koitsu) for more code organization tips
+* Jeremy Chadwick (koitsu) for code organization tips
+* Matt Hughson and Fiskbit for config feedback
 * Greg Caldwell of Retrotainment Games for testing the Windows
   instructions
 
@@ -262,7 +289,7 @@ Legal
 The demo is distributed under the following license, based on the
 GNU All-Permissive License:
 
-> Copyright 2011-2016 Damian Yerrick
+> Copyright 2011-2024 Damian Yerrick
 > 
 > Copying and distribution of this file, with or without
 > modification, are permitted in any medium without royalty provided
