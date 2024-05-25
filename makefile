@@ -133,7 +133,7 @@ objlist256 := $(foreach o,nrom256 $(objlist),$(objdir)/$(o).o)
 map.txt $(title).nes: nrom128.cfg $(objlist128)
 	$(LD65) -o $(title).nes --dbgfile $(title).dbg -m map.txt -C $^
 
-map256.txt $(title)256.nes: nrom256.cfg $(objlist256)
+map256.txt $(title)256.nes: nrom256-without-dmc.cfg $(objlist256)
 	$(LD65) -o $(title)256.nes --dbgfile $(title)256.dbg -m map256.txt -C $^
 
 # Rule to create or update the distribution zipfile by adding all
