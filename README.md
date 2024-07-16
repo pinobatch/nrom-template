@@ -7,20 +7,24 @@ NROM template
 ![Screenshot: a figure in a red vest and newsboy cap scooting on his hands and bottom on a ground of grass and dirt between two yellow crates](docs/screenshot.png)
 
 This is a minimal working program for the Nintendo Entertainment
-System using the NROM-128  (nrom-template.nes) and NROM-256
-(nrom-template256.nes) boards.
+System using the NROM-128 (nrom-template.nes) and NROM-256
+(nrom-template256.nes) boards.  [NROM] is the simplest circuit board
+used in NES Game Paks, with none of the mapper complexity that could
+confuse a beginner.
 
 Concepts illustrated:
 
-* init code
+* system initialization code
 * setting up a static background
 * structure of a game loop
-* OAM DMA-synchronized controller reading for better resistance to
-  DPCM-related bit deletion than most of the licensed library
+* controller reading, synchronized to OAM DMA to avoid a conflict
+  with sample playback more reliably than most licensed games
 * 8.8 fixed-point arithmetic
 * acceleration-based character movement physics
 * sprite drawing and animation, with horizontal flipping
-* makefile-controlled conversion of sprite sheets
+* makefile-controlled conversion of sprite sheet images to NES format
+
+[NROM]: https://www.nesdev.org/wiki/NROM
 
 Setting up the build environment
 --------------------------------
@@ -29,8 +33,8 @@ You'll need the following software installed to build this demo:
 * ca65 and ld65, the assembly language tools that ship
   with the cc65 C compiler
 * Python, a programming language interpreter
-* Pillow (Python Imaging Library), a Python extension to read and
-  write bitmap images
+* Pillow (Python Imaging Library), a library to read and write
+  bitmap images in Python programs
 * GNU Make, a program to calculate which files need to be
   rebuilt when other files change
 * GNU Coreutils, a set of simple command-line utilities for
@@ -41,14 +45,20 @@ Many tools used by programmers have a command-line interface (CLI).
 Though this may be unfamiliar to long-time users of graphical user
 interfaces (GUI), a CLI tool is easier to include in an automated
 process of building an NES game from source code.
-You are encouraged to read and understand the articles on general
-computer science topics listed at "[Before the basics]" on NESdev Wiki.
 
+If you've never programmed for a MOS 6502 processor, run through
+"[Easy 6502]" by skilldrick to familiarize yourself with its
+instructions.  "[Before the basics]" on NESdev Wiki lists some
+informative articles about general computer science topics.
+You don't have to read them all, but the more you understand coming
+in, the easier time you'll have learning to program the NES.
+
+[Easy 6502]: https://skilldrick.github.io/easy6502/
 [Before the basics]: https://www.nesdev.org/wiki/Before_the_basics
 
 ### On Linux
 
-To install Make, Python 3, and Pillow under Ubuntu:
+To install Make, Python 3, and Pillow under Debian or Ubuntu:
 
 1. Open a terminal.
 2. Type the following, followed by the Enter key:
@@ -65,9 +75,10 @@ To install Make, Python 3, and Pillow under Fedora:
 
         yum install make automake gcc gcc-c++ python3 python3-pillow
 
-Because cc65 is a fairly niche tool, and because part of the
-package once had non-free restrictions on distribution, your
-Linux distribution's default repository might not provide cc65.
+Because cc65 is a fairly niche tool, and because part of the package
+once had non-free restrictions on distribution, your distribution's
+default repository might not provide cc65.  Recent versions of
+Debian and Ubuntu provide it through `sudo apt install cc65`.
 If not, you can install it from source code.
 
 1. Visit [cc65 on GitHub].
@@ -88,6 +99,12 @@ If not, you can install it from source code.
         if [ -d "$HOME/.local/bin" ] ; then
             PATH="$HOME/.local/bin:$PATH"
         fi
+
+Now that everything is set up, try to build the ROM.  Close your
+session and log in again.  Open a shell, use the `cd` command to
+navigate to the folder containing the file `makefile` if needed,
+and run `make`.  You will probably have to edit `makefile` to
+specify an emulator to use in `make run`.
 
 [cc65 on GitHub]: https://github.com/cc65/cc65
 
@@ -182,15 +199,19 @@ a folder already on `Path`.  Though `od65.exe` is not required to
 build nrom-template, some programs that use a mapper need `od65` to
 determine which bank everything goes in.
 
-If `make nrom-template.nes` prints "up to date" and `make run` prints
-"command not found", the makefile is trying to run the built ROM in
-an emulator.  Open the makefile in a text editor and
-change `EMU` to the path of your preferred emulator.
+Now that everything is set up, try to build the ROM.  Open a command
+prompt, use the `cd` command to navigate to the folder containing
+the file `makefile` if needed, and run the command `make`.
 
-If `make` prints nothing, not even "command not found" or "No targets
-specified and no makefile found", then you may have accidentally
-downloaded and installed Make with Guile.  Download the version
-_without Guile_ and try again.
+- If `make nrom-template.nes` prints "up to date" and `make run`
+  prints "command not found", you're almost there!  The ROM was
+  built successfully, and the makefile is trying to run the ROM
+  an emulator.  Open `makefile` in a text editor and
+  change `EMU` to the path of your preferred emulator.
+- If `make` prints nothing, not even "command not found" or "not an
+  operable program" or "No targets specified and no makefile found",
+  you may have accidentally downloaded and installed Make with Guile.
+  Download the version _without Guile_ and try again.
 
 To get `make dist` to build a zipfile, you'll need to install the Zip
 and UnZip command-line tools published by [Info-ZIP].  Be careful, as
