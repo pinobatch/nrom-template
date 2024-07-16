@@ -239,6 +239,10 @@ Organization of the program
 
 ### Source code files
 
+Each source code file in the `src` folder is made up of
+subroutines that start with `.proc` and end with `.endproc`.
+See the [ca65 Users Guide] for what these mean.
+
 * `nrom.s`: iNES header for NROM
 * `init.s`: PPU and CPU I/O initialization code
 * `main.s`: Main program
@@ -247,9 +251,15 @@ Organization of the program
 * `pads.s`: Read the controllers in a DPCM-safe manner
 * `ppuclear.s`: Useful subroutines for interacting with the NES PPU
 
-Each source code file is made up of subroutines that start with
-`.proc` and end with `.endproc`.  See the [ca65 Users Guide] for
-what these mean.
+### Tile sheets
+
+Pictures on the NES are made of tiles, each 8 by 8 pixels in size.
+To edit the tile sheet images in the `tilesets` folder, use a paint
+program that can save images using indexed color, such as LibreSprite
+or GIMP.  Paint programs that save only in RGB format will not work.
+
+* `bggfx.png`: Background tiles
+* `spritegfx.png`: Moving object tiles
 
 ### Linker configuration files
 
@@ -301,9 +311,10 @@ Greets
 * Matt Hughson and Fiskbit for config feedback
 * Greg Caldwell of Retrotainment Games for testing the Windows
   instructions
+* velpachallenger for feedback on README.md
 
-[NESdev Wiki]: http://wiki.nesdev.com/
-[FCEUX]: http://fceux.com/
+[NESdev Wiki]: https://www.nesdev.org/wiki/Nesdev_Wiki
+[FCEUX]: https://fceux.com/
 
 Legal
 -----
