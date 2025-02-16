@@ -3,7 +3,7 @@
 # Bitmap to multi-console CHR converter using Pillow, the
 # Python Imaging Library
 #
-# Copyright 2014-2015 Damian Yerrick
+# Copyright 2014-2025 Damian Yerrick
 # Copying and distribution of this file, with or without
 # modification, are permitted in any medium without royalty
 # provided the copyright notice and this notice are preserved.
@@ -77,6 +77,8 @@ def pilbmp2chr(im, tileWidth=8, tileHeight=8,
     return outdata
 
 def parse_argv(argv):
+    # optparse is still used because of how it supports mixing
+    # named arguments (-i and -o) with positional arguments
     from optparse import OptionParser
     parser = OptionParser(usage="usage: %prog [options] [-i] INFILE [-o] OUTFILE")
     parser.add_option("-i", "--image", dest="infilename",
@@ -87,7 +89,10 @@ def parse_argv(argv):
                       help="set width of metatiles", metavar="HEIGHT",
                       type="int", default=8)
     parser.add_option("--packbits", dest="packbits",
-                      help="use PackBits RLE compression",
+                      help="use Apple PackBits RLE compression if available",
+                      action="store_true", default=False)
+    parser.add_option("--pb8", dest="use_pb8",
+                      help="use PB8 RLE compression if available",
                       action="store_true", default=False)
     parser.add_option("-H", "--tile-height", dest="tileHeight",
                       help="set height of metatiles", metavar="HEIGHT",
@@ -95,7 +100,7 @@ def parse_argv(argv):
     parser.add_option("-1", dest="planes",
                       help="set 1bpp mode (default: 2bpp NES)",
                       action="store_const", const="0", default="0;1")
-    parser.add_option("--planes", dest="planes",
+    parser.add_option("-p", "--planes", dest="planes",
                       help="set the plane map (1bpp: 0) (NES: 0;1) (GB: 0,1) (SMS:0,1,2,3) (TG16/SNES: 0,1;2,3) (MD: 3210)")
     parser.add_option("--hflip", dest="hflip",
                       help="horizontally flip all tiles (most significant pixel on right)",
@@ -143,8 +148,8 @@ def parse_argv(argv):
     if addamt0 is None: addamt0 = addamt
 
     return (infilename, outfilename, tileWidth, tileHeight,
-            options.packbits, options.planes, options.hflip, options.little,
-            addamt, addamt0)
+            options.planes, options.hflip, options.little,
+            options.packbits, options.use_pb8, addamt, addamt0)
 
 argvTestingMode = True
 
@@ -167,13 +172,18 @@ def main(argv=None):
             argv.extend(input('args:').split())
     try:
         (infilename, outfilename, tileWidth, tileHeight,
-         usePackBits, planes, hflip, little,
-         addamt, addamt0) = parse_argv(argv)
+         planes, hflip, little,
+         usePackBits, use_pb8, addamt, addamt0) = parse_argv(argv)
     except Exception as e:
         sys.stderr.write("%s: %s\n" % (argv[0], str(e)))
         sys.exit(1)
 
     im = Image.open(infilename)
+    im.load()
+    if len(im.getbands()) > 1:
+        print("%s: %s: image must be indexed (not mode %s)"
+              % (argv[0], infilename, im.mode), file=sys.stderr)
+        sys.exit(1)
 
     # Subpalette shift
     if addamt or addamt0:
@@ -186,10 +196,14 @@ def main(argv=None):
     outdata = pilbmp2chr(im, tileWidth, tileHeight,
                          lambda im: formatTilePlanar(im, planes, hflip, little))
     outdata = b''.join(outdata)
-    if usePackBits:
+    im = None
+    if use_pb8:
+        from pb8 import pb8
+        outdata = pb8(outdata)
+    elif usePackBits:
         from packbits import PackBits
         sz = len(outdata) % 0x10000
-        outdata = PackBits(outdata).flush().tostring()
+        outdata = PackBits(outdata).flush().tobytes()
         outdata = b''.join([chr(sz >> 8), chr(sz & 0xFF), outdata])
 
     # Write output file

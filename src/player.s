@@ -165,14 +165,14 @@ doneWallCollision:
     adc #1
   player_animate_noneg:
 
-  lsr a  ; Multiply abs(velocity) by 5/16
+  lsr a  ; Multiply abs(velocity) by 5/16 cels per pixel
   lsr a
   sta 0
   lsr a
   lsr a
   adc 0
 
-  ; And 16-bit add it to player_frame, mod $600  
+  ; And 16-bit add it to player_frame, modulo $700 (7 cels per cycle)
   adc player_frame_sub
   sta player_frame_sub
   lda player_frame
