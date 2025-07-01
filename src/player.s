@@ -108,7 +108,7 @@ RIGHT_WALL = 224
     bcc notLeftStop
     lda #256-WALK_BRAKE
   notLeftStop:
-    adc #8-1
+    adc #WALK_BRAKE-1
     sta player_dxlo
   doneLeft:
 
