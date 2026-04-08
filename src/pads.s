@@ -80,7 +80,7 @@ controller2 = $0001
   stx $4016          ; put get put get
 @read_loop:
   lda $4017          ; put get put GET  <- loop code must take an even number of cycles total
-  and #%00000011     ; put get
+  and #%00000011     ; put get          <- why AND? see Famicom paragraph above
   cmp #1             ; put get
   rol controller2, x ; put get put get put get (X = 0; waste 1 cycle and 0 bytes for alignment)
   lda $4016          ; put get put GET
@@ -99,9 +99,6 @@ controller2 = $0001
   sta new_keys,x
   lda controller1,x
   sta cur_keys,x
-  beq :+
-    sta $4444
-  :
   dex
   bpl @calcNewKeys
   rts

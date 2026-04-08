@@ -145,7 +145,7 @@ map256.txt $(title)256.nes: nrom256-without-dmc.cfg $(objlist256)
 dist: zip
 zip: $(title)-$(version).zip
 $(title)-$(version).zip: \
-  zip.in all README.md CHANGES.txt $(objdir)/index.txt
+  zip.in all README.md CHANGES.txt $(objdir)/.gitkeep
 	zip -9 -u $@ -@ < $<
 
 # Build zip.in from the list of files in the Git tree.
@@ -155,8 +155,8 @@ zip.in:
 	echo $(title)256.nes >> $@
 	echo zip.in >> $@
 
-$(objdir)/index.txt: makefile
-	echo Files produced by build tools go here > $@
+$(objdir)/.gitkeep: makefile
+	echo https://www.freecodecamp.org/news/what-is-gitkeep/ > $@
 
 # When troubleshooting a build process or cleaning up a full drive,
 # you can remove intermediate files.
